@@ -153,7 +153,7 @@ public class Uredjivac implements ActionListener{
 			tekst.paste();
 		}
 		else if(a.equals("Zatvori")){
-			
+			prozor.dispose();
 		}
 		
 	}
