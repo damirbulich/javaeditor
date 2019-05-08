@@ -18,7 +18,7 @@ public class Uredjivac implements ActionListener{
 	JPanel meni;
 	public Uredjivac(){
 		prozor = new JFrame("TxtEditor");
-		tekst = new JTextArea(44,4);
+		tekst = new JTextArea(43,4);
 		novi = new JButton("Novi dokument");
 		novi.addActionListener(this);
 		otvr = new JButton("Otvori");
@@ -35,8 +35,24 @@ public class Uredjivac implements ActionListener{
 		zalj.addActionListener(this);
 		zatv = new JButton("Zatvori");
 		zatv.addActionListener(this);
+		JLabel brojac = new JLabel("Broj rijeci: "+(tekst.getText().split(" ").length-1)
+				+ " Broj slova: "+tekst.getText().replace(" ", "").length()
+				+" Broj samoglasnika: "+tekst.getText().replaceAll(" ", "").replaceAll("(?i)[^aeiou]" , "").length()
+				+" Broj suglasnika: "+tekst.getText().replaceAll(" ", "").replaceAll("(?i)[\\saeiou]" , "").length());
 		
 		meni = new JPanel();
+		JPanel bro = new JPanel();
+		JButton pre = new JButton("Prebroji");
+		pre.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				brojac.setText("Broj rijeci: "+tekst.getText().split(" ").length 
+						+ " Broj slova: "+tekst.getText().replace(" ", "").length()
+						+" Broj samoglasnika: "+tekst.getText().replaceAll(" ", "").replaceAll("(?i)[^aeiou]" , "").length()
+						+" Broj suglasnika: "+tekst.getText().replaceAll(" ", "").replaceAll("(?i)[aeiou]" , "").length());
+				
+			}
+		});
 		meni.add(novi);
 		meni.add(otvr);
 		meni.add(spre);
@@ -48,6 +64,9 @@ public class Uredjivac implements ActionListener{
 		
 		prozor.add(meni, BorderLayout.NORTH);
 		prozor.add(tekst, BorderLayout.SOUTH);
+		bro.add(brojac, BorderLayout.WEST);
+		bro.add(pre, BorderLayout.EAST);
+		prozor.add(bro, BorderLayout.CENTER);
 		prozor.setSize(700, 800);
 		prozor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		prozor.setVisible(true);
